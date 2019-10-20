@@ -1,12 +1,21 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 
 export default function TodoList(props) {
   return (
     <View style={styles.listContainer}>
-      <Icon name="square" size={30} color="black" style={{ marginLeft: 15 }} />
-      <Text style={styles.listItem}>{props.text}</Text>
+      <Icon
+        name={props.checked ? "check" : "square"}
+        size={30}
+        color="black"
+        style={{ marginLeft: 15 }}
+        onPress={props.setChecked}
+      />
+      <View>
+        {props.checked && <View style={styles.verticalLine} />}
+        <Text style={styles.listItem}>{props.text}</Text>
+      </View>
       <Icon
         name="trash-2"
         size={30}
@@ -36,6 +45,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     fontSize: 17,
     fontWeight: "bold",
-    color: "white"
+    color: "black"
+  },
+  verticalLine: {
+    borderBottomColor: "green",
+    borderBottomWidth: 4,
+    marginLeft: 10,
+    width: "100%",
+    position: "absolute",
+    marginTop: 15,
+    fontWeight: "bold"
   }
 });

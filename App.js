@@ -22,6 +22,23 @@ export default function App() {
     }
   };
 
+  checkTodo = id => {
+    setTodos(
+      todos.map(todo => {
+        if (todo.key === id) todo.checked = !todo.checked;
+        return todo;
+      })
+    );
+  };
+
+  deleteTodo = id => {
+    setTodos(
+      todos.filter(todo => {
+        if (todo.key !== id) return true;
+      })
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Todo List</Text>
@@ -40,7 +57,13 @@ export default function App() {
       </View>
       <ScrollView style={{ width: "100%" }}>
         {todos.map(item => (
-          <TodoList text={item.text} key={item.key} />
+          <TodoList
+            text={item.text}
+            key={item.key}
+            checked={item.checked}
+            setChecked={() => checkTodo(item.key)}
+            deleteTodo={() => deleteTodo(item.key)}
+          />
         ))}
       </ScrollView>
     </View>
