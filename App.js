@@ -4,10 +4,12 @@ import {
   Text,
   View,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  ScrollView
 } from "react-native";
 
 import Icon from "react-native-vector-icons/Feather";
+import TodoList from './TodoList';
 
 export default function App() {
   const [value, setValue] = useState("");
@@ -33,10 +35,14 @@ export default function App() {
           onChangeText={value => setValue(value)}
         />
         <TouchableOpacity onPress={() => addTodo()}>
-          >
           <Icon name="plus" size={30} color="blue" style={{ marginLeft: 15 }} />
         </TouchableOpacity>
       </View>
+      <ScrollView style={{ width: "100%" }}>
+        {todos.map(item => (
+          <TodoList text={item.text} key={item.key} />
+        ))}
+      </ScrollView>
     </View>
   );
 }
