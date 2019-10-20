@@ -1,18 +1,24 @@
 import React, { useState } from "react";
-import { StyleSheet, 
-  Text, 
-  View, 
-  Button,
+import {
+  StyleSheet,
+  Text,
+  View,
   TouchableOpacity,
   TextInput
-  } from "react-native";
+} from "react-native";
 
-const App = () => {
-  const [count, setCount] = useState(0);
+import Icon from "react-native-vector-icons/Feather";
 
-  const buttonClickHandler = () => {
-    setCount(count + 1);
-  }
+export default function App() {
+  const [value, setValue] = useState("");
+  const [todos, setTodos] = useState([]);
+
+  addTodo = () => {
+    if (value.length > 0) {
+      setTodos([...todos, { text: value, key: Date.now(), checked: false }]);
+      setValue("");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -23,7 +29,13 @@ const App = () => {
           multiline={true}
           placeholder="What do you want to do today?"
           placeholderTextColor="#abbabb"
+          value={value}
+          onChangeText={value => setValue(value)}
         />
+        <TouchableOpacity onPress={() => addTodo()}>
+          >
+          <Icon name="plus" size={30} color="blue" style={{ marginLeft: 15 }} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -60,5 +72,3 @@ const styles = StyleSheet.create({
     minHeight: "3%"
   }
 });
-
-export default App;
